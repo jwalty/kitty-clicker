@@ -56,3 +56,15 @@ body {
     height: 100%;
     width: 100%;
 }
+
+#githubLink {
+    font-family: sans-serif;
+    position: absolute;
+    color: white;
+    bottom: 0;
+    right: 0;
+    font-size: 2vmin;
+    text-decoration: none;
+    padding: .5vmin;
+    opacity: 20%;
+}
