@@ -1,22 +1,23 @@
 let value = 0;
 let lifetimeClicks = 0;
-var dingSE = new Audio('ding.mp3');
-dingSE.volume = .2;
+
 
 let lastClickTime = new Date();
 let timeBetweenClicks = [];
 
 
-var pop = function() {
+let pop = function() {
     const timeOfClick = new Date();
     timeBetweenClicks.push(timeOfClick - lastClickTime);
     lastClickTime = timeOfClick;
-    var popSoundEffect = new Audio('pop.mp3');
+    let popSoundEffect = new Audio('res/audio/pop.mp3');
     popSoundEffect.volume = .2;
     popSoundEffect.play();
     value = value + 1;
     lifetimeClicks++;
     if (value % 5 == 0) {
+        let dingSE = new Audio('res/audio/ding.mp3');
+        dingSE.volume = .2;
         dingSE.play();
         createBad();
     }
@@ -26,10 +27,6 @@ var pop = function() {
     this.style.top = `${randomNumber2}%`;
     updateStats();
 
-}
-
-function testTimeMath() { 
-    const newDate = new Date();
 }
 
 //stolen average from stackoverflow lol
@@ -47,9 +44,9 @@ function updateStats() {
 function createBad() {
     const baddie = document.createElement("img");
     baddie.style.position = 'absolute';
-    baddie.src = 'jail.jpg';
+    baddie.src = 'res/img/jail.jpg';
     baddie.style.height = '10vmin';
-    baddie.style.boxShadow = `0px 0px 62px 0px rgba(255,0,0,0.55)`;
+    baddie.style.boxShadow = `0px 0px 3vmin 0px rgba(255,0,0,0.55)`;
     baddie.style.width = '10vmin';
     baddie.style.borderRadius = '50%';
     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
@@ -81,12 +78,5 @@ function badFlash() {
     badFlash.style.animationDuration = '4s';
     badFlash.style.pointerEvents = 'none';
     badFlash.style.zIndex = '20';
-
     document.body.appendChild(badFlash);
-}
-
-function evilMode() {
-    document.body.style.backgroundColor = '#7c1b1e';
-    document.getElementById("value").style.color = 'black';
-    document.getElementById("value").style.opacity = '75%';
 }
