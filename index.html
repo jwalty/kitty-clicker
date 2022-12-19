@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-
-    <p id="value">O</p>
+    <span id="missedClickDetector" onmousedown="clickMissed()"></span>
+    <p id="value" onmousedown="clickMissed()">O</p>
     <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="res/img/kitty.jpg">
     <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="res/img/kitty.jpg">
     <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="res/img/kitty.jpg">
@@ -23,6 +23,8 @@
       Avg: <span id="averageReaction">0</span>ms
       <br>
       Lifetime Clicks: <span id="lifetimeClicks">0</span>
+      <br>
+      Missed Clicks: <span id="missedClicks">0</span>
       <br>
     </div>
 

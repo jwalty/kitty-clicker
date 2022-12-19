@@ -51,6 +51,8 @@ body {
     to {opacity: 0%;}
 }
 
-button {
-    margin-left: 200px;
+#missedClickDetector {
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }

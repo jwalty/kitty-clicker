@@ -1,5 +1,6 @@
 let value = 0;
 let lifetimeClicks = 0;
+let missedClicks = 0;
 
 
 let lastClickTime = new Date();
@@ -79,4 +80,9 @@ function badFlash() {
     badFlash.style.pointerEvents = 'none';
     badFlash.style.zIndex = '20';
     document.body.appendChild(badFlash);
+}
+
+function clickMissed() {
+    missedClicks = missedClicks + 1;
+    document.getElementById("missedClicks").innerHTML = missedClicks;
 }
