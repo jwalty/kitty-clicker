@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>kitty clicker</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <p id="value">O</p>
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <img draggable="false" onmousedown="pop.call(this)" id="kitty" src="kitty.jpg">
+    <div id="stats">
+      Best: <span id="bestReaction">0</span>ms
+      <br>
+      Worst: <span id="worstReaction">0</span>ms
+      <br>
+      Avg: <span id="averageReaction">0</span>ms
+      <br>
+      Lifetime Clicks: <span id="lifetimeClicks">0</span>
+      <br>
+    </div>
+    <button onclick="evilMode()">EVIL MODE</button>
+
+    <script src="main.js"></script>
+  </body>
+</html>
