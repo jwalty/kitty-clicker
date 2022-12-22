@@ -2,6 +2,9 @@ let currentScore = 0;
 let lifetimeClicks = 0;
 let missedClicks = 0;
 
+//hungryKitties will spawn 1/hungryKittySpawnrate
+let hungryKittySpawnrate = 200;
+
 let pop = function() {
     let popSoundEffect = new Audio('res/audio/pop.mp3');
     popSoundEffect.volume = .2;
@@ -19,7 +22,7 @@ let pop = function() {
     this.style.left = `${randomNumber1}%`;
     this.style.top = `${randomNumber2}%`;
     updateStats();
-    let randNumber = Math.floor(Math.random() * 50);
+    let randNumber = Math.floor(Math.random() * hungryKittySpawnrate);
     if (randNumber == 0) {
         createHungry();
     }
