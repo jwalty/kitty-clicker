@@ -1,22 +1,14 @@
-let value = 0;
+let currentScore = 0;
 let lifetimeClicks = 0;
 let missedClicks = 0;
 
-
-let lastClickTime = new Date();
-let timeBetweenClicks = [];
-
-
 let pop = function() {
-    const timeOfClick = new Date();
-    timeBetweenClicks.push(timeOfClick - lastClickTime);
-    lastClickTime = timeOfClick;
     let popSoundEffect = new Audio('res/audio/pop.mp3');
     popSoundEffect.volume = .2;
     popSoundEffect.play();
-    value = value + 1;
+    currentScore = currentScore + 1;
     lifetimeClicks++;
-    if (value % 5 == 0) {
+    if (currentScore % 5 == 0) {
         let dingSE = new Audio('res/audio/ding.mp3');
         dingSE.volume = .2;
         dingSE.play();
@@ -34,12 +26,11 @@ let pop = function() {
 const average = array => array.reduce((a, b) => a + b) / array.length;
 
 function updateStats() {
-    document.getElementById("value").innerHTML = value;
+    document.getElementById("currentScore").innerHTML = currentScore;
     document.getElementById("lifetimeClicks").innerHTML = lifetimeClicks;
-    document.getElementById("bestReaction").innerHTML = Math.min(...timeBetweenClicks);
-    document.getElementById("worstReaction").innerHTML = Math.max(...timeBetweenClicks);
-    document.getElementById("averageReaction").innerHTML = Math.floor(average(timeBetweenClicks));
-    document.title = `kitty clicker - ${value}`;
+    document.getElementById("missedClicks").innerHTML = missedClicks;
+    document.title = `kitty clicker - ${currentScore}`;
+    saveStats();
 }
 
 function createBad() {
@@ -57,7 +48,7 @@ function createBad() {
     baddie.style.transform = `translate(-50%, -50%);`
     baddie.draggable = false;
     baddie.onmousedown = function() {
-        value = value - 10;
+        currentScore = currentScore - 10;
         updateStats();
         baddie.style.visibility = 'hidden';
         badFlash();
@@ -86,3 +77,28 @@ function clickMissed() {
     missedClicks = missedClicks + 1;
     document.getElementById("missedClicks").innerHTML = missedClicks;
 }
+
+function loadStats() {
+    
+    currentScore = Number(localStorage.getItem('currentScore'));
+    lifetimeClicks = Number(localStorage.getItem('lifetimeClicks'));
+    missedClicks = Number(localStorage.getItem('missedClicks'));
+    updateStats();
+
+}
+
+function saveStats() {
+    localStorage.setItem('currentScore', currentScore);
+    localStorage.setItem('lifetimeClicks', lifetimeClicks);
+    localStorage.setItem('missedClicks', missedClicks);
+}
+
+//resetting stats
+document.addEventListener('keydown', function(event){
+    if (event.keyCode === 82) {
+        localStorage.clear();
+        alert("Score reset! Happy clicking! :)");
+        this.location.reload();
+    }
+
+} );

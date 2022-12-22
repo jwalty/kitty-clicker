@@ -22,7 +22,7 @@ body {
     user-select: none;
 }
 
-#value {
+#currentScore {
     color: white;
     opacity: 5%;
     font-family: sans-serif;
