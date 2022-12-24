@@ -63,7 +63,7 @@ function createBad() {
         currentScore = currentScore - 10;
         updateStats();
         baddie.style.visibility = 'hidden';
-        badFlash();
+        createFlash("red");
         let errorSoundEffect = new Audio('res/audio/error.mp3');
         errorSoundEffect.volume = .2;
         errorSoundEffect.play();
@@ -71,20 +71,20 @@ function createBad() {
     document.body.appendChild(baddie);
 }
 
-function badFlash() {
-    const badFlash = document.createElement("figure");
-    badFlash.style.position = 'absolute';
-    badFlash.style.height = `100%`;
-    badFlash.style.width = `100%`;
-    badFlash.style.margin = '0px';
-    badFlash.style.padding = '0px';
-    badFlash.style.backgroundColor = 'red';
-    badFlash.style.opacity = '0%';
-    badFlash.style.animationName = 'opacityDrop';
-    badFlash.style.animationDuration = '4s';
-    badFlash.style.pointerEvents = 'none';
-    badFlash.style.zIndex = '20';
-    document.body.appendChild(badFlash);
+function createFlash(color) {
+    const flash = document.createElement("figure");
+    flash.style.position = 'absolute';
+    flash.style.height = `100%`;
+    flash.style.width = `100%`;
+    flash.style.margin = '0px';
+    flash.style.padding = '0px';
+    flash.style.backgroundColor = color;
+    flash.style.opacity = '0%';
+    flash.style.animationName = 'opacityDrop';
+    flash.style.animationDuration = '4s';
+    flash.style.pointerEvents = 'none';
+    flash.style.zIndex = '20';
+    document.body.appendChild(flash);
 }
 
 function createHungry() {
@@ -102,36 +102,19 @@ function createHungry() {
     hungry.style.transform = `translate(-50%, -50%);`
     hungry.draggable = false;
     hungry.onmousedown = function() {
-        currentScore = currentScore - 10;
-        updateStats();
         hungry.style.visibility = 'hidden';
-        goodFlash();
+        createFlash("yellow");
         const badKitties = document.querySelectorAll('.baddie');
         badKitties.forEach(badKitty => {
+            currentScore++;
             badKitty.remove();
         });
         let mlemSoundEffect = new Audio('res/audio/mlem.mp3');
         mlemSoundEffect.volume = .2;
         mlemSoundEffect.play();
+        updateStats();
     }
     document.body.appendChild(hungry);
-}
-
-
-function goodFlash() {
-    const goodFlash = document.createElement("figure");
-    goodFlash.style.position = 'absolute';
-    goodFlash.style.height = `100%`;
-    goodFlash.style.width = `100%`;
-    goodFlash.style.margin = '0px';
-    goodFlash.style.padding = '0px';
-    goodFlash.style.backgroundColor = 'yellow';
-    goodFlash.style.opacity = '0%';
-    goodFlash.style.animationName = 'opacityDrop';
-    goodFlash.style.animationDuration = '4s';
-    goodFlash.style.pointerEvents = 'none';
-    goodFlash.style.zIndex = '20';
-    document.body.appendChild(goodFlash);
 }
 
 function clickMissed() {
