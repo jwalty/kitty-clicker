@@ -5,6 +5,7 @@ let currentScore = 0;
 let clicksThatHitNothing = 0;
 let badKittiesClicked = 0;
 let hungryKittiesClicked = 0;
+let badKittiesEaten = 0;
 
 //array of stats for nerds
 let statsForNerds = ['totalClicks', 'goodKittiesClicked', 'currentScore', 'clicksThatHitNothing', 'badKittiesClicked', 'hungryKittiesClicked'];
@@ -73,6 +74,7 @@ function updateStats() {
     document.getElementById("clicksThatHitNothing").innerHTML = clicksThatHitNothing;
     document.getElementById("badKittiesClicked").innerHTML = badKittiesClicked;
     document.getElementById("hungryKittiesClicked").innerHTML = hungryKittiesClicked;
+    document.getElementById("badKittiesEaten").innerHTML = badKittiesEaten;
     document.title = `kitty clicker - ${currentScore}`;
     saveStats();
 }
@@ -146,6 +148,7 @@ function createHungry() {
         badKitties.forEach(badKitty => {
             currentScore++;
             badKitty.remove();
+            badKittiesEaten++;
         });
         let mlemSoundEffect = new Audio('res/audio/mlem.mp3');
         mlemSoundEffect.volume = .2;
@@ -194,6 +197,7 @@ function loadStats() {
     currentScore = Number(localStorage.getItem('currentScore'));
     clicksThatHitNothing = Number(localStorage.getItem('clicksThatHitNothing'));
     badKittiesClicked = Number(localStorage.getItem('badKittiesClicked'));
+    badKittiesEaten = Number(localStorage.getItem('hungryKittiesClicked'));
     hungryKittiesClicked = Number(localStorage.getItem('hungryKittiesClicked'));
     updateStats();
 }
@@ -205,6 +209,7 @@ function saveStats() {
     localStorage.setItem('currentScore', currentScore);
     localStorage.setItem('clicksThatHitNothing', clicksThatHitNothing);
     localStorage.setItem('badKittiesClicked', badKittiesClicked);
+    localStorage.setItem('hungryKittiesClicked', hungryKittiesClicked);
     localStorage.setItem('hungryKittiesClicked', hungryKittiesClicked);
 }
 
