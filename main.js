@@ -1,7 +1,13 @@
 //stats for nerds
+let totalClicks = 0;
+let goodKittiesClicked = 0
 let currentScore = 0;
-let lifetimeClicks = 0;
-let missedClicks = 0;
+let clicksThatHitNothing = 0;
+let badKittiesClicked = 0;
+let hungryKittiesClicked = 0;
+
+//array of stats for nerds
+let statsForNerds = ['totalClicks', 'goodKittiesClicked', 'currentScore', 'clicksThatHitNothing', 'badKittiesClicked', 'hungryKittiesClicked'];
 
 //spawnrates
 let startingKitties = 7;
@@ -29,7 +35,8 @@ function createGood() {
     goodKitty.style.transform = `translate(-50%, -50%);`
 
     goodKitty.onmousedown = function() {
-        lifetimeClicks++;
+        totalClicks++;
+        goodKittiesClicked++;
         currentScore++;
         updateStats();
         goodKitty.remove();
@@ -61,9 +68,12 @@ function createGood() {
 
 //updates frontend visuals, saves to localStorage
 function updateStats() {
+    document.getElementById("totalClicks").innerHTML = totalClicks;
+    document.getElementById("goodKittiesClicked").innerHTML = goodKittiesClicked;
     document.getElementById("currentScore").innerHTML = currentScore;
-    document.getElementById("lifetimeClicks").innerHTML = lifetimeClicks;
-    document.getElementById("missedClicks").innerHTML = missedClicks;
+    document.getElementById("clicksThatHitNothing").innerHTML = clicksThatHitNothing;
+    document.getElementById("badKittiesClicked").innerHTML = badKittiesClicked;
+    document.getElementById("hungryKittiesClicked").innerHTML = hungryKittiesClicked;
     document.title = `kitty clicker - ${currentScore}`;
     saveStats();
 }
@@ -85,9 +95,11 @@ function createBad() {
     baddie.style.transform = `translate(-50%, -50%);`
     baddie.draggable = false;
     baddie.onmousedown = function() {
-        currentScore = currentScore - 10;
+        totalClicks++;
+        badKittiesClicked++;
+        currentScore -= 10;
         updateStats();
-        baddie.style.visibility = 'hidden';
+        baddie.remove();
         createFlash("red");
         let errorSoundEffect = new Audio('res/audio/error.mp3');
         errorSoundEffect.volume = .8;
@@ -127,7 +139,9 @@ function createHungry() {
     hungry.style.transform = `translate(-50%, -50%);`
     hungry.draggable = false;
     hungry.onmousedown = function() {
-        hungry.style.visibility = 'hidden';
+        totalClicks++;
+        hungryKittiesClicked++;
+        hungry.remove();
         createFlash("yellow");
         const badKitties = document.querySelectorAll('.baddie');
         badKitties.forEach(badKitty => {
@@ -166,26 +180,33 @@ function createHungry() {
 //     document.body.appendChild(kittyBuilder);
 // }
 
-
 //tracks missing clicks
+
 function clickMissed() {
-    missedClicks = missedClicks + 1;
+    clicksThatHitNothing++;
+    totalClicks++;
     updateStats();
 }
 
 //loads stats from localStorage, called onload
 function loadStats() {
+    totalClicks = Number(localStorage.getItem('totalClicks'));
+    goodKittiesClicked = Number(localStorage.getItem('goodKittiesClicked'));
     currentScore = Number(localStorage.getItem('currentScore'));
-    lifetimeClicks = Number(localStorage.getItem('lifetimeClicks'));
-    missedClicks = Number(localStorage.getItem('missedClicks'));
+    clicksThatHitNothing = Number(localStorage.getItem('clicksThatHitNothing'));
+    badKittiesClicked = Number(localStorage.getItem('badKittiesClicked'));
+    hungryKittiesClicked = Number(localStorage.getItem('hungryKittiesClicked'));
     updateStats();
 }
 
 //Saving stats (called in updateStats to update after every click)
 function saveStats() {
+    localStorage.setItem('totalClicks', totalClicks);
+    localStorage.setItem('goodKittiesClicked', goodKittiesClicked);
     localStorage.setItem('currentScore', currentScore);
-    localStorage.setItem('lifetimeClicks', lifetimeClicks);
-    localStorage.setItem('missedClicks', missedClicks);
+    localStorage.setItem('clicksThatHitNothing', clicksThatHitNothing);
+    localStorage.setItem('badKittiesClicked', badKittiesClicked);
+    localStorage.setItem('hungryKittiesClicked', hungryKittiesClicked);
 }
 
 //Resetting stats on 'R'
