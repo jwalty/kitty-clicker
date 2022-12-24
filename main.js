@@ -15,10 +15,11 @@ let hungryKittySpawnrate = 200;
 
 //spawn starting kitties
 for (let i=0; i < startingKitties; i++) {
-    createGood();
+    createGood(Math.floor(Math.random() * 75) + 10, Math.floor(Math.random() * 75) + 10);
+
 }
 
-function createGood() {
+function createGood(left, top) {
     const goodKitty = document.createElement("img");
     goodKitty.style.position = 'absolute';
     goodKitty.src = 'res/img/kitty.jpg';
@@ -28,10 +29,8 @@ function createGood() {
     goodKitty.draggable = false;
 
     //random spawning
-    let randomNumber1 = Math.floor(Math.random() * 75) + 10;
-    let randomNumber2 = Math.floor(Math.random() * 75) + 10;
-    goodKitty.style.left = `${randomNumber1}%`;
-    goodKitty.style.top = `${randomNumber2}%`;
+    goodKitty.style.left = `${left}%`;
+    goodKitty.style.top = `${top}%`;
     goodKitty.style.transform = `translate(-50%, -50%);`
 
     goodKitty.onmousedown = function() {
@@ -40,7 +39,7 @@ function createGood() {
         currentScore++;
         updateStats();
         goodKitty.remove();
-        createGood();
+        createGood(Math.floor(Math.random() * 75) + 10, Math.floor(Math.random() * 75) + 10);
 
         //check for evil cat spawn
         if (currentScore % 5 == 0) {
