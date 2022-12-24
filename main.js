@@ -5,6 +5,10 @@ let missedClicks = 0;
 //hungryKitties will spawn 1/hungryKittySpawnrate
 let hungryKittySpawnrate = 200;
 
+function hideGame() {
+    document.getElementById("test").style.visibility = 'hidden';
+}
+
 let pop = function() {
     let popSoundEffect = new Audio('res/audio/pop.mp3');
     popSoundEffect.volume = .2;
@@ -27,8 +31,6 @@ let pop = function() {
         createHungry();
     }
     console.log(randNumber);
-
-
 }
 
 //stolen average from stackoverflow lol
@@ -134,7 +136,7 @@ function goodFlash() {
 
 function clickMissed() {
     missedClicks = missedClicks + 1;
-    document.getElementById("missedClicks").innerHTML = missedClicks;
+    updateStats();
 }
 
 function loadStats() {
