@@ -3,35 +3,61 @@ let currentScore = 0;
 let lifetimeClicks = 0;
 let missedClicks = 0;
 
-//hungryKitties will spawn 1/hungryKittySpawnrate
+//spawnrates
+let startingKitties = 7;
 let hungryKittySpawnrate = 200;
 
-//moves normal kitty to a new location, increments score
-let pop = function() {
-    let popSoundEffect = new Audio('res/audio/pop.mp3');
-    popSoundEffect.volume = .2;
-    popSoundEffect.play();
-    currentScore++;
-    lifetimeClicks++;
-    if (currentScore % 5 == 0) {
-        let dingSE = new Audio('res/audio/ding.mp3');
-        dingSE.volume = .2;
-        dingSE.play();
-        createBad();
-    }
-    let randomNumber1 = Math.floor(Math.random() * 75) + 10;
-    let randomNumber2 = Math.floor(Math.random() * 75) + 10;
-    this.style.left = `${randomNumber1}%`;
-    this.style.top = `${randomNumber2}%`;
-    updateStats();
-    let randNumber = Math.floor(Math.random() * hungryKittySpawnrate);
-    if (randNumber == 0) {
-        createHungry();
-    }
+//spawn starting kitties
+for (let i=0; i < startingKitties; i++) {
+    createGood();
 }
 
-//stolen average from stackoverflow lol
-const average = array => array.reduce((a, b) => a + b) / array.length;
+function createGood() {
+    const goodKitty = document.createElement("img");
+    goodKitty.style.position = 'absolute';
+    goodKitty.src = 'res/img/kitty.jpg';
+    goodKitty.style.height = '10vmin';
+    goodKitty.style.width = '10vmin';
+    goodKitty.style.borderRadius = '50%';
+    goodKitty.draggable = false;
+
+    //random spawning
+    let randomNumber1 = Math.floor(Math.random() * 75) + 10;
+    let randomNumber2 = Math.floor(Math.random() * 75) + 10;
+    goodKitty.style.left = `${randomNumber1}%`;
+    goodKitty.style.top = `${randomNumber2}%`;
+    goodKitty.style.transform = `translate(-50%, -50%);`
+
+    goodKitty.onmousedown = function() {
+        lifetimeClicks++;
+        currentScore++;
+        updateStats();
+        goodKitty.remove();
+        createGood();
+
+        //check for evil cat spawn
+        if (currentScore % 5 == 0) {
+            let dingSE = new Audio('res/audio/ding.mp3');
+            dingSE.volume = .2;
+            dingSE.play();
+            createBad();
+        }
+
+        //play sound
+        let popSoundEffect = new Audio('res/audio/pop.mp3');
+        popSoundEffect.volume = .2;
+        popSoundEffect.play();
+
+        //check for hungry cat spawn
+        let randNumber = Math.floor(Math.random() * hungryKittySpawnrate);
+        if (randNumber == 0) {
+            createHungry();
+        }
+
+        updateStats();
+    }
+    document.body.appendChild(goodKitty);
+}
 
 //updates frontend visuals, saves to localStorage
 function updateStats() {
@@ -51,6 +77,7 @@ function createBad() {
     baddie.style.boxShadow = `0px 0px 3vmin 0px rgba(255,0,0,0.55)`;
     baddie.style.width = '10vmin';
     baddie.style.borderRadius = '50%';
+    baddie.style.zIndex = '20';
     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
     let randomNumber2 = Math.floor(Math.random() * 75) + 10;
     baddie.style.left = `${randomNumber1}%`;
@@ -115,6 +142,31 @@ function createHungry() {
     document.body.appendChild(hungry);
 }
 
+//TODO: KITTY BUILDER, kitty generalization
+
+// createKitty("good","res/img/kitty.jpg", "rgba(0, 0, 0, 0.0)");
+
+// function createKitty(name, imgsrc, color) {
+//     const kittyBuilder = document.createElement("img");
+//     kittyBuilder.style.position = 'absolute';
+//     kittyBuilder.src = imgsrc;
+//     kittyBuilder.style.height = '10vmin';
+//     kittyBuilder.style.boxShadow = `0px 0px 8vmin 5vmin ${color}`;
+//     kittyBuilder.style.width = '10vmin';
+//     kittyBuilder.style.borderRadius = '50%';
+//     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
+//     let randomNumber2 = Math.floor(Math.random() * 75) + 10;
+//     kittyBuilder.style.left = `${randomNumber1}%`;
+//     kittyBuilder.style.top = `${randomNumber2}%`;
+//     kittyBuilder.style.transform = `translate(-50%, -50%);`
+//     kittyBuilder.draggable = false;
+//     kittyBuilder.onmousedown = function() {
+
+//     }
+//     document.body.appendChild(kittyBuilder);
+// }
+
+
 //tracks missing clicks
 function clickMissed() {
     missedClicks = missedClicks + 1;
@@ -136,7 +188,7 @@ function saveStats() {
     localStorage.setItem('missedClicks', missedClicks);
 }
 
-//Ressetting stats on 'R'
+//Resetting stats on 'R'
 document.addEventListener('keydown', function(event){
     if (event.keyCode === 82) {
         localStorage.clear();

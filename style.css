@@ -7,16 +7,6 @@ body {
     user-select: none;
 }
 
-#kitty {
-    position: absolute;
-    width: 10vmin;
-    height: 10vmin;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-}
-
 #currentScore {
     color: white;
     opacity: 5%;
