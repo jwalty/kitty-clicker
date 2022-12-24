@@ -63,7 +63,7 @@ function createBad() {
         baddie.style.visibility = 'hidden';
         createFlash("red");
         let errorSoundEffect = new Audio('res/audio/error.mp3');
-        errorSoundEffect.volume = .2;
+        errorSoundEffect.volume = .8;
         errorSoundEffect.play();
     }
     document.body.appendChild(baddie);
