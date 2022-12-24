@@ -1,3 +1,4 @@
+//stats for nerds
 let currentScore = 0;
 let lifetimeClicks = 0;
 let missedClicks = 0;
@@ -5,15 +6,12 @@ let missedClicks = 0;
 //hungryKitties will spawn 1/hungryKittySpawnrate
 let hungryKittySpawnrate = 200;
 
-function hideGame() {
-    document.getElementById("test").style.visibility = 'hidden';
-}
-
+//moves normal kitty to a new location, increments score
 let pop = function() {
     let popSoundEffect = new Audio('res/audio/pop.mp3');
     popSoundEffect.volume = .2;
     popSoundEffect.play();
-    currentScore = currentScore + 1;
+    currentScore++;
     lifetimeClicks++;
     if (currentScore % 5 == 0) {
         let dingSE = new Audio('res/audio/ding.mp3');
@@ -30,12 +28,12 @@ let pop = function() {
     if (randNumber == 0) {
         createHungry();
     }
-    console.log(randNumber);
 }
 
 //stolen average from stackoverflow lol
 const average = array => array.reduce((a, b) => a + b) / array.length;
 
+//updates frontend visuals, saves to localStorage
 function updateStats() {
     document.getElementById("currentScore").innerHTML = currentScore;
     document.getElementById("lifetimeClicks").innerHTML = lifetimeClicks;
@@ -117,27 +115,28 @@ function createHungry() {
     document.body.appendChild(hungry);
 }
 
+//tracks missing clicks
 function clickMissed() {
     missedClicks = missedClicks + 1;
     updateStats();
 }
 
+//loads stats from localStorage, called onload
 function loadStats() {
-    
     currentScore = Number(localStorage.getItem('currentScore'));
     lifetimeClicks = Number(localStorage.getItem('lifetimeClicks'));
     missedClicks = Number(localStorage.getItem('missedClicks'));
     updateStats();
-
 }
 
+//Saving stats (called in updateStats to update after every click)
 function saveStats() {
     localStorage.setItem('currentScore', currentScore);
     localStorage.setItem('lifetimeClicks', lifetimeClicks);
     localStorage.setItem('missedClicks', missedClicks);
 }
 
-//resetting stats
+//Ressetting stats on 'R'
 document.addEventListener('keydown', function(event){
     if (event.keyCode === 82) {
         localStorage.clear();
