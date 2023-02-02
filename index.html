@@ -28,6 +28,12 @@
 
 
     <a href="https://github.com/jwalty/kitty-clicker" id="githubLink">github for feature requests</a>
+    <script src="shake.js">myShakeEvent.start();
+      function shakeEventDidOccur () {
+          localStorage.clear();
+          alert("Score reset! Happy clicking! :)");
+          this.location.reload();
+      }</script>
     <script src="main.js"></script>
   </body>
 </html>
