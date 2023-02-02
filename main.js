@@ -158,30 +158,6 @@ function createHungry() {
     document.body.appendChild(hungry);
 }
 
-//TODO: KITTY BUILDER, kitty generalization
-
-// createKitty("good","res/img/kitty.jpg", "rgba(0, 0, 0, 0.0)");
-
-// function createKitty(name, imgsrc, color) {
-//     const kittyBuilder = document.createElement("img");
-//     kittyBuilder.style.position = 'absolute';
-//     kittyBuilder.src = imgsrc;
-//     kittyBuilder.style.height = '10vmin';
-//     kittyBuilder.style.boxShadow = `0px 0px 8vmin 5vmin ${color}`;
-//     kittyBuilder.style.width = '10vmin';
-//     kittyBuilder.style.borderRadius = '50%';
-//     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
-//     let randomNumber2 = Math.floor(Math.random() * 75) + 10;
-//     kittyBuilder.style.left = `${randomNumber1}%`;
-//     kittyBuilder.style.top = `${randomNumber2}%`;
-//     kittyBuilder.style.transform = `translate(-50%, -50%);`
-//     kittyBuilder.draggable = false;
-//     kittyBuilder.onmousedown = function() {
-
-//     }
-//     document.body.appendChild(kittyBuilder);
-// }
-
 //tracks missing clicks
 
 function clickMissed() {
