@@ -198,5 +198,3 @@ document.addEventListener('keydown', function(event){
     }
 
 } );
-
-//attempt to add shake support for mobile
