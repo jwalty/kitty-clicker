@@ -1,21 +1,20 @@
 body {
-    background-image: radial-gradient(circle, rgb(47, 47, 52), rgb(32, 32, 38));
+    background-image: radial-gradient(circle, rgb(47, 47, 52), rgb(16, 16, 19));
     background-position: center;
     background-size: stretch;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 97vh;
     overflow: hidden;
     color: white;
     margin: 0;
     padding: 0;
-    font-family:'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:'Rubik';
     user-select: none;
 }
 
 #currentScore {
     color: white;
     opacity: 5%;
-    font-family: sans-serif;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -28,18 +27,13 @@ body {
     position: absolute;
     padding-left: 1vmin;
     color: white;
-    font-family: sans-serif;
     padding-top: 1vmin;
     font-size: 2vmin;
     opacity: 50%;
     pointer-events: none;
 }
 
-/* flash effect */
-@keyframes opacityDrop {
-    from {opacity: 25%;}
-    to {opacity: 0%;}
-}
+
 
 #missedClickDetector {
     position: absolute;
@@ -48,7 +42,6 @@ body {
 }
 
 #githubLink {
-    font-family: sans-serif;
     position: absolute;
     color: white;
     bottom: 0;
@@ -58,3 +51,49 @@ body {
     padding: .5vmin;
     opacity: 20%;
 }
+
+footer {
+    background-color: rgb(21, 21, 21);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer > a {
+    text-decoration: none;
+    color: white;
+    padding: 1vmin;
+}
+
+.goodKitty {
+    position: absolute;
+    height: 10vmin;
+    width: 10vmin;
+    border-radius: 50%;
+}
+
+.badKitty {
+    position: absolute;
+    height: 10vmin;
+    width: 10vmin;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3vmin 0px rgba(255,0,0,0.55);
+    z-index: 20;
+}
+
+.hungryKitty {
+    position: absolute;
+    height: 10vmin;
+    width: 10vmin;
+    border-radius: 50%;
+    box-shadow: 0px 0px 8vmin 5vmin rgba(255, 210, 0, 0.40);
+    z-index: 20;
+}
+
+@keyframes opacityDrop {
+    from {opacity: 25%;}
+    to {opacity: 0%;}
+};

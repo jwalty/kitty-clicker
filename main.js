@@ -14,24 +14,26 @@ let statsForNerds = ['totalClicks', 'goodKittiesClicked', 'currentScore', 'click
 let startingKitties = 7;
 let hungryKittySpawnrate = 200;
 
+//kitty container
+let kittyContainer = document.querySelector('#kittyContainer');
+
 //spawn starting kitties
 for (let i=0; i < startingKitties; i++) {
-    createGood(Math.floor(Math.random() * 75) + 10, Math.floor(Math.random() * 75) + 10);
+    createGood();
 
 }
 
 function createGood(left, top) {
     const goodKitty = document.createElement("img");
-    goodKitty.style.position = 'absolute';
+    goodKitty.classList = 'goodKitty';
     goodKitty.src = 'res/img/kitty.jpg';
-    goodKitty.style.height = '10vmin';
-    goodKitty.style.width = '10vmin';
-    goodKitty.style.borderRadius = '50%';
     goodKitty.draggable = false;
 
     //random spawning
-    goodKitty.style.left = `${left}%`;
-    goodKitty.style.top = `${top}%`;
+    let randomNumber1 = Math.floor(Math.random() * 75) + 10;
+    let randomNumber2 = Math.floor(Math.random() * 75) + 10;
+    goodKitty.style.left = `${randomNumber1}%`;
+    goodKitty.style.top = `${randomNumber2}%`;
     goodKitty.style.transform = `translate(-50%, -50%);`
 
     goodKitty.onmousedown = function() {
@@ -39,8 +41,9 @@ function createGood(left, top) {
         goodKittiesClicked++;
         currentScore++;
         updateStats();
+
         goodKitty.remove();
-        createGood(Math.floor(Math.random() * 75) + 10, Math.floor(Math.random() * 75) + 10);
+        createGood();
 
         //check for evil cat spawn
         if (currentScore % 5 == 0) {
@@ -61,40 +64,37 @@ function createGood(left, top) {
             createHungry();
         }
 
-        updateStats();
     }
-    document.body.appendChild(goodKitty);
+    kittyContainer.appendChild(goodKitty);
 }
 
 //updates frontend visuals, saves to localStorage
 function updateStats() {
-    document.getElementById("totalClicks").innerHTML = totalClicks;
-    document.getElementById("goodKittiesClicked").innerHTML = goodKittiesClicked;
-    document.getElementById("currentScore").innerHTML = currentScore;
-    document.getElementById("clicksThatHitNothing").innerHTML = clicksThatHitNothing;
-    document.getElementById("badKittiesClicked").innerHTML = badKittiesClicked;
-    document.getElementById("hungryKittiesClicked").innerHTML = hungryKittiesClicked;
-    document.getElementById("badKittiesEaten").innerHTML = badKittiesEaten;
+    document.getElementById("totalClicks").textContent = totalClicks;
+    document.getElementById("goodKittiesClicked").textContent = goodKittiesClicked;
+    document.getElementById("currentScore").textContent = currentScore;
+    document.getElementById("clicksThatHitNothing").textContent = clicksThatHitNothing;
+    document.getElementById("badKittiesClicked").textContent = badKittiesClicked;
+    document.getElementById("hungryKittiesClicked").textContent = hungryKittiesClicked;
+    document.getElementById("badKittiesEaten").textContent = badKittiesEaten;
     document.title = `kitty clicker - ${currentScore}`;
     saveStats();
 }
 
 function createBad() {
     const baddie = document.createElement("img");
-    baddie.style.position = 'absolute';
     baddie.src = 'res/img/jail.jpg';
-    baddie.style.height = '10vmin';
-    baddie.setAttribute('class','baddie');
-    baddie.style.boxShadow = `0px 0px 3vmin 0px rgba(255,0,0,0.55)`;
-    baddie.style.width = '10vmin';
-    baddie.style.borderRadius = '50%';
-    baddie.style.zIndex = '20';
+    baddie.classList = 'badKitty';
+    baddie.draggable = false;
+    
+    //random spawning
     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
     let randomNumber2 = Math.floor(Math.random() * 75) + 10;
     baddie.style.left = `${randomNumber1}%`;
     baddie.style.top = `${randomNumber2}%`;
     baddie.style.transform = `translate(-50%, -50%);`
-    baddie.draggable = false;
+
+    //adding popping event listener
     baddie.onmousedown = function() {
         totalClicks++;
         badKittiesClicked++;
@@ -106,9 +106,10 @@ function createBad() {
         errorSoundEffect.volume = .8;
         errorSoundEffect.play();
     }
-    document.body.appendChild(baddie);
+    kittyContainer.appendChild(baddie);
 }
 
+//flash effect for 'special kitties'
 function createFlash(color) {
     const flash = document.createElement("figure");
     flash.style.position = 'absolute';
@@ -123,22 +124,21 @@ function createFlash(color) {
     flash.style.pointerEvents = 'none';
     flash.style.zIndex = '20';
     document.body.appendChild(flash);
+    setTimeout(() => {flash.remove()}, 5000);
 }
 
 function createHungry() {
     const hungry = document.createElement("img");
-    hungry.style.position = 'absolute';
     hungry.src = 'res/img/hungry.jpg';
-    hungry.style.height = '10vmin';
-    hungry.style.boxShadow = `0px 0px 8vmin 5vmin rgba(255, 210, 0, 0.40)`;
-    hungry.style.width = '10vmin';
-    hungry.style.borderRadius = '50%';
+    hungry.draggable = false;
+
+    //random spawning
     let randomNumber1 = Math.floor(Math.random() * 75) + 10;
     let randomNumber2 = Math.floor(Math.random() * 75) + 10;
     hungry.style.left = `${randomNumber1}%`;
     hungry.style.top = `${randomNumber2}%`;
     hungry.style.transform = `translate(-50%, -50%);`
-    hungry.draggable = false;
+
     hungry.onmousedown = function() {
         totalClicks++;
         hungryKittiesClicked++;
@@ -155,11 +155,10 @@ function createHungry() {
         mlemSoundEffect.play();
         updateStats();
     }
-    document.body.appendChild(hungry);
+    kittyContainer.appendChild(hungry);
 }
 
 //tracks missing clicks
-
 function clickMissed() {
     clicksThatHitNothing++;
     totalClicks++;
