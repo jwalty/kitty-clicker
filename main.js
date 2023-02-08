@@ -129,6 +129,7 @@ function createFlash(color) {
 
 function createHungry() {
     const hungry = document.createElement("img");
+    hungry.classList = 'hungryKitty';
     hungry.src = 'res/img/hungry.jpg';
     hungry.draggable = false;
 
