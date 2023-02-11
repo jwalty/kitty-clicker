@@ -145,7 +145,7 @@ function createHungry() {
         hungryKittiesClicked++;
         hungry.remove();
         createFlash("yellow");
-        const badKitties = document.querySelectorAll('.baddie');
+        const badKitties = document.querySelectorAll('.badKitty');
         badKitties.forEach(badKitty => {
             currentScore++;
             badKitty.remove();
